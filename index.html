@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OMFiNiTiVE - Infinite Possibilities. Singular Vision. Modular SaaS platform for Care, HR, and Procurement.">
+  <meta name="theme-color" content="#001F3F">
+  <title>OMFiNiTiVE - Infinite Possibilities. Singular Vision.</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="assets/logo.svg" alt="OMFiNiTiVE" height="40">
+      </a>
+      <div class="nav-links" id="navLinks">
+        <a href="#solutions">Solutions</a>
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#contact">Contact</a>
+        <a href="https://app-uat.omfinitive.net" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Sign In</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-bg">
+      <div class="hero-gradient"></div>
+      <div class="hero-particles" id="heroParticles"></div>
+    </div>
+    <div class="container hero-content">
+      <div class="hero-badge">Modular SaaS Platform</div>
+      <h1 class="hero-title">
+        Infinite Possibilities.<br>
+        <span class="gradient-text">Singular Vision.</span>
+      </h1>
+      <p class="hero-subtitle">
+        One intelligent platform that unifies care management, human resources,
+        and procurement into a seamless, modular experience.
+      </p>
+      <div class="hero-actions">
+        <a href="#solutions" class="btn btn-primary btn-lg">Explore Solutions</a>
+        <a href="#contact" class="btn btn-outline btn-lg">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Integrated Modules</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">1</span>
+          <span class="stat-label">Unified Platform</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+          <span class="stat-number">&infin;</span>
+          <span class="stat-label">Possibilities</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <a href="#solutions" aria-label="Scroll to solutions">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+        </svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- Solutions Section -->
+  <section class="section solutions" id="solutions">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Our Solutions</span>
+        <h2 class="section-title">Three Modules. <span class="gradient-text">One Vision.</span></h2>
+        <p class="section-subtitle">
+          Each module is purpose-built for its domain, yet designed to work together
+          as a unified ecosystem that drives operational excellence.
+        </p>
+      </div>
+      <div class="solutions-grid">
+        <!-- Care -->
+        <div class="solution-card" data-module="care">
+          <div class="solution-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="12" fill="url(#careGrad)"/>
+              <path d="M24 36s-10-6.5-10-14a6 6 0 0 1 10-4.46A6 6 0 0 1 34 22c0 7.5-10 14-10 14z" stroke="#fff" stroke-width="2" fill="none"/>
+              <defs><linearGradient id="careGrad" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#007BFF"/><stop offset="1" stop-color="#6F42C1"/></linearGradient></defs>
+            </svg>
+          </div>
+          <h3 class="solution-name">OMFiNiTiVE Care</h3>
+          <p class="solution-desc">
+            Comprehensive care management for residential and supported living.
+            Manage care plans, assessments, body mapping, incident reporting,
+            and compliance all in one place.
+          </p>
+          <ul class="solution-features">
+            <li>Care Plans &amp; Needs Assessments</li>
+            <li>Body Mapping &amp; Wound Tracking</li>
+            <li>Service Referrals &amp; Reviews</li>
+            <li>Policy &amp; Document Management</li>
+            <li>Incident &amp; Safeguarding Reports</li>
+          </ul>
+          <div class="solution-cta">
+            <a href="#contact" class="btn btn-ghost">Learn More &rarr;</a>
+          </div>
+        </div>
+
+        <!-- HR -->
+        <div class="solution-card" data-module="hr">
+          <div class="solution-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="12" fill="url(#hrGrad)"/>
+              <circle cx="20" cy="18" r="4" stroke="#fff" stroke-width="2" fill="none"/>
+              <path d="M14 32c0-3.3 2.7-6 6-6h0c3.3 0 6 2.7 6 6" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="30" cy="20" r="3" stroke="#fff" stroke-width="1.5" fill="none"/>
+              <path d="M26 32c0-2.5 1.8-4.5 4-4.5s4 2 4 4.5" stroke="#fff" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+              <defs><linearGradient id="hrGrad" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#6F42C1"/><stop offset="1" stop-color="#007BFF"/></linearGradient></defs>
+            </svg>
+          </div>
+          <h3 class="solution-name">OMFiNiTiVE HR</h3>
+          <p class="solution-desc">
+            Modern human resources management designed for care organisations.
+            Streamline recruitment, attendance, training, and workforce
+            planning with intelligent tools.
+          </p>
+          <ul class="solution-features">
+            <li>Employee Profiles &amp; Records</li>
+            <li>Attendance &amp; Shift Management</li>
+            <li>Training &amp; Compliance Tracking</li>
+            <li>Recruitment Pipeline</li>
+            <li>Performance Reviews</li>
+          </ul>
+          <div class="solution-cta">
+            <a href="#contact" class="btn btn-ghost">Learn More &rarr;</a>
+          </div>
+        </div>
+
+        <!-- Procurement -->
+        <div class="solution-card" data-module="procurement">
+          <div class="solution-icon">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="48" height="48" rx="12" fill="url(#procGrad)"/>
+              <rect x="14" y="20" width="20" height="14" rx="2" stroke="#fff" stroke-width="2" fill="none"/>
+              <path d="M18 20v-4a6 6 0 0 1 12 0v4" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <circle cx="24" cy="27" r="2" fill="#fff"/>
+              <defs><linearGradient id="procGrad" x1="0" y1="0" x2="48" y2="48"><stop stop-color="#001F3F"/><stop offset="1" stop-color="#007BFF"/></linearGradient></defs>
+            </svg>
+          </div>
+          <h3 class="solution-name">OMFiNiTiVE Procurement</h3>
+          <p class="solution-desc">
+            Smart procurement and supply chain management.
+            Optimise purchasing workflows, manage suppliers,
+            and maintain full audit trails with ease.
+          </p>
+          <ul class="solution-features">
+            <li>Purchase Order Management</li>
+            <li>Supplier Directory &amp; Ratings</li>
+            <li>Budget Tracking &amp; Approvals</li>
+            <li>Inventory Management</li>
+            <li>Spend Analytics &amp; Reports</li>
+          </ul>
+          <div class="solution-cta">
+            <a href="#contact" class="btn btn-ghost">Learn More &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section about" id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-content">
+          <span class="section-badge">About OMFiNiTiVE</span>
+          <h2 class="section-title">Built for the Future of Care</h2>
+          <p class="about-text">
+            OMFiNiTiVE is a modular SaaS platform built to empower care organisations
+            with the tools they need to deliver outstanding service. Our name embodies
+            the infinite possibilities that arise when innovation meets purpose.
+          </p>
+          <p class="about-text">
+            The infinity symbol at the heart of our brand represents continuity,
+            intelligence, and the endless potential we unlock for our partners.
+            With three integrated modules, we provide a singular vision
+            for managing the complexities of modern care delivery.
+          </p>
+          <div class="about-values">
+            <div class="value">
+              <div class="value-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
+              <div>
+                <h4>Innovation</h4>
+                <p>Pushing boundaries with intelligent, forward-thinking solutions.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <div>
+                <h4>Continuity</h4>
+                <p>Seamless workflows that never break, from end to end.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+              </div>
+              <div>
+                <h4>Intelligence</h4>
+                <p>Data-driven insights that inform better decisions.</p>
+              </div>
+            </div>
+            <div class="value">
+              <div class="value-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <h4>Empowerment</h4>
+                <p>Giving teams the tools to focus on what matters most.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="infinity-visual">
+            <img src="assets/logo-icon.svg" alt="OMFiNiTiVE Symbol" class="infinity-logo">
+            <div class="infinity-ring infinity-ring-1"></div>
+            <div class="infinity-ring infinity-ring-2"></div>
+            <div class="infinity-ring infinity-ring-3"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Platform Features</span>
+        <h2 class="section-title">Everything You Need. <span class="gradient-text">Nothing You Don't.</span></h2>
+        <p class="section-subtitle">
+          A thoughtfully crafted platform that prioritises simplicity, security, and scale.
+        </p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <h4>Modular Architecture</h4>
+          <p>Adopt one module or all three. Each works independently yet integrates seamlessly.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h4>Enterprise Security</h4>
+          <p>End-to-end encryption, role-based access, and full audit trails for peace of mind.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          </div>
+          <h4>Cloud-Native</h4>
+          <p>Built for the cloud with automatic scaling, high availability, and zero downtime updates.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </div>
+          <h4>Compliance Ready</h4>
+          <p>Built to meet CQC, GDPR, and sector-specific regulatory requirements out of the box.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          </div>
+          <h4>Real-Time Analytics</h4>
+          <p>Dashboards and reports that give you instant visibility across all operations.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          </div>
+          <h4>Responsive Design</h4>
+          <p>Works beautifully on desktop, tablet, and mobile so your team can work from anywhere.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section cta">
+    <div class="cta-bg">
+      <div class="cta-gradient"></div>
+    </div>
+    <div class="container cta-content">
+      <h2 class="cta-title">Ready to Transform Your Operations?</h2>
+      <p class="cta-subtitle">
+        Join forward-thinking care organisations that are already using OMFiNiTiVE
+        to streamline their workflows and deliver better outcomes.
+      </p>
+      <div class="cta-actions">
+        <a href="#contact" class="btn btn-white btn-lg">Request a Demo</a>
+        <a href="https://app-uat.omfinitive.net" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener">Try the Platform</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Get in Touch</span>
+        <h2 class="section-title">Let's Start a <span class="gradient-text">Conversation</span></h2>
+        <p class="section-subtitle">
+          Whether you're ready to get started or just want to learn more,
+          we'd love to hear from you.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <h4>Email Us</h4>
+              <a href="mailto:hello@omfinitive.net">hello@omfinitive.net</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <h4>Location</h4>
+              <p>United Kingdom</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            </div>
+            <div>
+              <h4>Platform</h4>
+              <a href="https://app-uat.omfinitive.net" target="_blank" rel="noopener">app-uat.omfinitive.net</a>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" id="contactForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="organisation">Organisation</label>
+            <input type="text" id="organisation" name="organisation" placeholder="Your organisation name">
+          </div>
+          <div class="form-group">
+            <label for="interest">Interested In</label>
+            <select id="interest" name="interest">
+              <option value="">Select a module...</option>
+              <option value="care">OMFiNiTiVE Care</option>
+              <option value="hr">OMFiNiTiVE HR</option>
+              <option value="procurement">OMFiNiTiVE Procurement</option>
+              <option value="all">Full Platform</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell us about your needs..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-full">Send Message</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="assets/logo.svg" alt="OMFiNiTiVE" height="36">
+          <p>Infinite Possibilities. Singular Vision.</p>
+        </div>
+        <div class="footer-links">
+          <h5>Solutions</h5>
+          <a href="#solutions">OMFiNiTiVE Care</a>
+          <a href="#solutions">OMFiNiTiVE HR</a>
+          <a href="#solutions">OMFiNiTiVE Procurement</a>
+        </div>
+        <div class="footer-links">
+          <h5>Company</h5>
+          <a href="#about">About Us</a>
+          <a href="#features">Features</a>
+          <a href="#contact">Contact</a>
+        </div>
+        <div class="footer-links">
+          <h5>Platform</h5>
+          <a href="https://app-uat.omfinitive.net" target="_blank" rel="noopener">Sign In</a>
+          <a href="#contact">Request Demo</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2026 OMFiNiTiVE. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

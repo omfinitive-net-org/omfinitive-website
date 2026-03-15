@@ -1,0 +1,11 @@
+name = "omfinitive-contact"
+main = "src/index.js"
+compatibility_date = "2024-12-01"
+
+[vars]
+ALLOWED_ORIGIN = "https://www.omfinitive.net"
+
+# Cloudflare Email Routing binding
+# Requires Email Routing to be enabled on omfinitive.net in Cloudflare dashboard
+[[send_email]]
+name = "EMAIL"

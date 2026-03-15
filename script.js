@@ -87,35 +87,74 @@ document.addEventListener('DOMContentLoaded', () => {
     val.style.animationDelay = (i * 0.1) + 's';
   });
 
-  // Contact form handling
+  // Contact form handling via Cloudflare Worker
+  const WORKER_URL = 'https://omfinitive-contact.omfinitive-net.workers.dev';
   const contactForm = document.getElementById('contactForm');
+  const formStatus = document.getElementById('formStatus');
+  const submitBtn = document.getElementById('submitBtn');
+
+  function showStatus(message, isError) {
+    formStatus.textContent = message;
+    formStatus.className = 'form-status ' + (isError ? 'form-status-error' : 'form-status-success');
+    formStatus.style.display = 'block';
+  }
+
   if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
+    contactForm.addEventListener('submit', async (e) => {
       e.preventDefault();
+      formStatus.style.display = 'none';
+
+      // Get Turnstile token
+      const turnstileToken = document.querySelector('[name="cf-turnstile-response"]')?.value;
+      if (!turnstileToken) {
+        showStatus('Please complete the captcha verification.', true);
+        return;
+      }
+
       const formData = new FormData(contactForm);
-      const data = Object.fromEntries(formData.entries());
+      const data = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        organisation: formData.get('organisation'),
+        interest: formData.get('interest'),
+        message: formData.get('message'),
+        turnstileToken: turnstileToken,
+      };
 
-      // Create mailto link as fallback
-      const subject = encodeURIComponent('OMFiNiTiVE Enquiry from ' + (data.name || 'Website'));
-      const body = encodeURIComponent(
-        'Name: ' + data.name + '\n' +
-        'Email: ' + data.email + '\n' +
-        'Organisation: ' + (data.organisation || 'N/A') + '\n' +
-        'Interested In: ' + (data.interest || 'N/A') + '\n\n' +
-        'Message:\n' + (data.message || 'N/A')
-      );
+      // Validate
+      if (!data.name || !data.email || !data.message) {
+        showStatus('Please fill in all required fields.', true);
+        return;
+      }
 
-      window.location.href = 'mailto:hello@omfinitive.net?subject=' + subject + '&body=' + body;
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending...';
 
-      // Show success state
-      const btn = contactForm.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      btn.textContent = 'Opening Email Client...';
-      btn.disabled = true;
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.disabled = false;
-      }, 3000);
+      try {
+        const response = await fetch(WORKER_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          showStatus('Thank you! Your message has been sent successfully.', false);
+          contactForm.reset();
+          // Reset Turnstile widget
+          if (window.turnstile) {
+            turnstile.reset();
+          }
+        } else {
+          showStatus(result.error || 'Something went wrong. Please try again.', true);
+        }
+      } catch (err) {
+        showStatus('Network error. Please check your connection and try again.', true);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Send Message';
+      }
     });
   }
 

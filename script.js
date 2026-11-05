@@ -141,6 +141,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok && result.success) {
           showStatus('Thank you! Your message has been sent successfully.', false);
+          if (window.omfTrack) window.omfTrack('contact_form_submitted');
           contactForm.reset();
           // Reset Turnstile widget
           if (window.turnstile) {

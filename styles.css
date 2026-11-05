@@ -1220,3 +1220,43 @@ img {
     opacity: 0;
   }
 }
+
+/* Analytics cookie consent */
+.cookie-banner {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding: 16px;
+}
+.cookie-banner[hidden] { display: none; }
+.cookie-banner-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  background: var(--white);
+  color: var(--gray-700);
+  border: 1px solid var(--gray-200);
+  border-radius: 16px;
+  box-shadow: 0 20px 50px rgba(0, 31, 63, 0.18);
+  padding: 20px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+.cookie-banner-inner strong { color: var(--navy); }
+.cookie-banner-inner p { margin: 4px 0 0; font-size: 0.9rem; color: var(--gray-600); }
+.cookie-banner-actions { display: flex; gap: 8px; flex-shrink: 0; }
+.cookie-banner-actions .btn { min-height: 44px; }
+@media (max-width: 600px) {
+  .cookie-banner-inner { flex-direction: column; align-items: stretch; }
+  .cookie-banner-actions .btn { flex: 1; }
+}
+.cookie-reject {
+  background: var(--white);
+  color: var(--gray-700);
+  border-color: var(--gray-300);
+}
+.cookie-reject:hover { background: var(--gray-50); border-color: var(--gray-400); }
+.footer-bottom a { color: var(--gray-400); text-decoration: underline; }
+.footer-bottom a:hover { color: var(--white); }

@@ -489,10 +489,25 @@
       </div>
       <div class="footer-bottom">
         <p>&copy; 2026 OMFiNiTiVE. All rights reserved.</p>
+        <p><a href="https://app.omfinitive.net/privacy">Privacy Policy</a> &middot; <a href="#" id="cookieSettings">Cookie settings</a></p>
       </div>
     </div>
   </footer>
 
+  <!-- Analytics cookie consent: nothing from Google loads until Accept. -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-labelledby="cookieTitle" aria-describedby="cookieText" hidden>
+    <div class="cookie-banner-inner">
+      <div>
+        <strong id="cookieTitle">Help us improve this site</strong>
+        <p id="cookieText">May we use Google Analytics cookies to see which pages are visited? We never collect what you type into our forms. <a href="https://app.omfinitive.net/privacy#cookies">Privacy policy</a>.</p>
+      </div>
+      <div class="cookie-banner-actions">
+        <button type="button" class="btn btn-sm cookie-reject" id="cookieReject">Reject</button>
+        <button type="button" class="btn btn-primary btn-sm" id="cookieAccept">Accept</button>
+      </div>
+    </div>
+  </div>
   <script src="script.js"></script>
+  <script src="analytics.js"></script>
 </body>
 </html>

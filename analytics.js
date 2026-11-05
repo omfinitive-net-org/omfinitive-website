@@ -1,11 +1,13 @@
 /* Google Analytics 4 for www.omfinitive.net, privacy first.
  * Nothing loads until the visitor clicks Accept (Consent Mode "basic"); Reject
  * keeps Google out entirely. "Cookie settings" in the footer reopens the
- * choice. Set GA_MEASUREMENT_ID to the site's G- ID; empty means off. */
+ * choice. GA_MEASUREMENT_ID is a GA4 ID (G-…, gtag.js) or a Google Tag
+ * Manager container (GTM-…, gtm.js); empty means off. */
 (function () {
-  var GA_MEASUREMENT_ID = '';
+  var GA_MEASUREMENT_ID = 'GTM-K5J22DQM';
   var KEY = 'omf-analytics-consent';
-  if (!/^G-[A-Z0-9]+$/i.test(GA_MEASUREMENT_ID)) {
+  var IS_GTM = /^GTM-/i.test(GA_MEASUREMENT_ID);
+  if (!/^(G|GTM)-[A-Z0-9]+$/i.test(GA_MEASUREMENT_ID)) {
     window.omfTrack = function () {};
     var link = document.getElementById('cookieSettings');
     if (link) link.hidden = true;
@@ -25,15 +27,21 @@
     window['ga-disable-' + GA_MEASUREMENT_ID] = false;
     gtag('js', new Date());
     gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted' });
-    gtag('config', GA_MEASUREMENT_ID, {
+    var settings = {
       allow_google_signals: false,
       allow_ad_personalization_signals: false,
       // Page path only: never send query strings or fragments.
       page_location: location.origin + location.pathname
-    });
+    };
+    if (IS_GTM) {
+      gtag('set', settings);
+      window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+    } else {
+      gtag('config', GA_MEASUREMENT_ID, settings);
+    }
     var s = document.createElement('script');
     s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_MEASUREMENT_ID;
+    s.src = 'https://www.googletagmanager.com/' + (IS_GTM ? 'gtm.js' : 'gtag/js') + '?id=' + GA_MEASUREMENT_ID;
     document.head.appendChild(s);
   }
   function clearCookies() {

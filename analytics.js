@@ -78,7 +78,12 @@
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="app.omfinitive.net"]');
     if (!a) return;
+    if (a.hasAttribute('data-plan')) return; // pricing cards send select_plan (script.js)
     var href = a.getAttribute('href');
-    window.omfTrack(href.indexOf('/careers') !== -1 ? 'care_jobs_click' : 'sign_in_click', { link_text: (a.textContent || '').trim().slice(0, 40) });
+    var name = href.indexOf('/careers') !== -1 ? 'care_jobs_click'
+      : href.indexOf('/signup') !== -1 ? 'start_trial_click'
+      : href.indexOf('/pricing') !== -1 ? 'view_pricing_click'
+      : 'sign_in_click';
+    window.omfTrack(name, { link_text: (a.textContent || '').trim().slice(0, 40) });
   });
 })();

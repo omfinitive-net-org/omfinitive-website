@@ -54,6 +54,15 @@
         "operatingSystem": "Web",
         "url": "https://app.omfinitive.net/",
         "description": "Modular SaaS platform for Care, HR, and Procurement: HR, payroll, recruitment, care delivery, eMAR, compliance and governance.",
+        "offers": {
+          "@type": "AggregateOffer",
+          "priceCurrency": "GBP",
+          "lowPrice": "18",
+          "highPrice": "42",
+          "offerCount": "6",
+          "description": "Per employee per month, plus a monthly base fee. 14-day free trial.",
+          "url": "https://www.omfinitive.net/#pricing"
+        },
         "publisher": { "@id": "https://www.omfinitive.net/#organization" }
       }
     ]
@@ -75,12 +84,14 @@
       </a>
       <div class="nav-links" id="navLinks">
         <a href="#solutions">Solutions</a>
-        <a href="#about">About</a>
         <a href="#features">Features</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#about">About</a>
         <a href="#contact">Contact</a>
-        <a href="https://app.omfinitive.net" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Sign In</a>
+        <a href="https://app.omfinitive.net" class="btn btn-nav-outline btn-sm" target="_blank" rel="noopener">Sign In</a>
+        <a href="https://app.omfinitive.net/signup" class="btn btn-primary btn-sm" target="_blank" rel="noopener">Start free trial</a>
       </div>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -105,8 +116,8 @@
         and procurement into a seamless, modular experience.
       </p>
       <div class="hero-actions">
-        <a href="#solutions" class="btn btn-primary btn-lg">Explore Solutions</a>
-        <a href="#contact" class="btn btn-outline btn-lg">Get in Touch</a>
+        <a href="https://app.omfinitive.net/signup" class="btn btn-primary btn-lg" target="_blank" rel="noopener">Start free trial</a>
+        <a href="#pricing" class="btn btn-outline btn-lg">View pricing</a>
       </div>
       <div class="hero-stats">
         <div class="stat">
@@ -259,7 +270,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
               </div>
               <div>
-                <h4>Innovation</h4>
+                <h3>Innovation</h3>
                 <p>Pushing boundaries with intelligent, forward-thinking solutions.</p>
               </div>
             </div>
@@ -268,7 +279,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
               <div>
-                <h4>Continuity</h4>
+                <h3>Continuity</h3>
                 <p>Seamless workflows that never break, from end to end.</p>
               </div>
             </div>
@@ -277,7 +288,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
               </div>
               <div>
-                <h4>Intelligence</h4>
+                <h3>Intelligence</h3>
                 <p>Data-driven insights that inform better decisions.</p>
               </div>
             </div>
@@ -286,7 +297,7 @@
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
               <div>
-                <h4>Empowerment</h4>
+                <h3>Empowerment</h3>
                 <p>Giving teams the tools to focus on what matters most.</p>
               </div>
             </div>
@@ -304,60 +315,100 @@
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section class="section features" id="features">
+  <!-- Features Section (mirrors the app's landing page #features) -->
+  <section class="section features" id="features" aria-labelledby="features-title">
     <div class="container">
       <div class="section-header">
         <span class="section-badge">Platform Features</span>
-        <h2 class="section-title">Everything You Need. <span class="gradient-text">Nothing You Don't.</span></h2>
+        <h2 class="section-title" id="features-title">Everything You Need <span class="gradient-text">to Excel</span></h2>
         <p class="section-subtitle">
-          A thoughtfully crafted platform that prioritises simplicity, security, and scale.
+          Purpose-built for healthcare organisations, OMFiNiTiVE provides comprehensive tools
+          to manage operations, ensure compliance, and deliver better care.
         </p>
       </div>
       <div class="features-grid">
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
           </div>
-          <h4>Modular Architecture</h4>
-          <p>Adopt one module or all three. Each works independently yet integrates seamlessly.</p>
+          <h3>Multi-Tenant Platform</h3>
+          <p>Manage multiple care facilities from a single workspace with complete data isolation and customisation.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
-          <h4>Enterprise Security</h4>
-          <p>End-to-end encryption, role-based access, and full audit trails for peace of mind.</p>
+          <h3>Role-Based Access</h3>
+          <p>10 predefined roles with granular permissions ensure the right people have access to the right information.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/></svg>
           </div>
-          <h4>Cloud-Native</h4>
-          <p>Built for the cloud with automatic scaling, high availability, and zero downtime updates.</p>
+          <h3>Policy Management</h3>
+          <p>Create, distribute, and track policy acknowledgments with automated compliance monitoring.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
           </div>
-          <h4>Compliance Ready</h4>
-          <p>Built to meet CQC, GDPR, and sector-specific regulatory requirements out of the box.</p>
+          <h3>Audit &amp; Compliance</h3>
+          <p>Comprehensive audit trails and reporting tools to meet regulatory requirements effortlessly.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
-          <h4>Real-Time Analytics</h4>
-          <p>Dashboards and reports that give you instant visibility across all operations.</p>
+          <h3>Attendance Tracking</h3>
+          <p>Real-time check-in/check-out across multiple institutions with detailed attendance reports.</p>
         </div>
         <div class="feature-card">
-          <div class="feature-icon">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+          <div class="feature-icon" aria-hidden="true">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
           </div>
-          <h4>Responsive Design</h4>
-          <p>Works beautifully on desktop, tablet, and mobile so your team can work from anywhere.</p>
+          <h3>Analytics &amp; Insights</h3>
+          <p>Powerful workspaces and reports to make data-driven decisions for better care outcomes.</p>
         </div>
       </div>
+
+      <div class="included">
+        <h3 class="included-title">What's included</h3>
+        <p class="included-subtitle">Eight capabilities, combined into a package for your care sector.</p>
+        <ul class="included-list">
+          <li><strong>HR Core</strong><span>Staff records, onboarding, policies and training</span></li>
+          <li><strong>Payroll &amp; Attendance</strong><span>Check-in/check-out, timesheets, leave and payroll</span></li>
+          <li><strong>Recruitment &amp; Eligibility</strong><span>Job board, safer recruitment, references and right to work</span></li>
+          <li><strong>Care Delivery</strong><span>Care plans, visits and daily care records</span></li>
+          <li><strong>Medications (eMAR)</strong><span>Electronic medication administration records</span></li>
+          <li><strong>Electronic Call Monitoring</strong><span>Visit check-in and live visit tracking</span></li>
+          <li><strong>Governance &amp; Safety</strong><span>Incidents, audits and safeguarding</span></li>
+          <li><strong>Compliance &amp; Quality</strong><span>Training matrix and inspection-ready evidence</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section: cards rendered by script.js from GET https://api.omfinitive.net/api/v1/packages (sector packages), with a built-in fallback -->
+  <section class="section pricing" id="pricing" aria-labelledby="pricing-title">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-badge">Pricing</span>
+        <h2 class="section-title" id="pricing-title">Simple, <span class="gradient-text">Transparent Pricing</span></h2>
+        <p class="section-subtitle">
+          Per-employee-per-month pricing that scales with your organisation. All plans include a 14-day free trial.
+        </p>
+      </div>
+      <div class="pricing-grid" id="pricingGrid" aria-live="polite">
+        <noscript>
+          <p class="pricing-noscript">Pricing starts from &pound;18 per employee per month.
+            <a href="https://app.omfinitive.net/pricing">See all packages</a> or
+            <a href="https://app.omfinitive.net/signup">start your 14-day free trial</a>.</p>
+        </noscript>
+      </div>
+      <p class="pricing-note">
+        Prices shown in GBP. Volume discounts available for 100+ employees.
+        <a href="https://app.omfinitive.net/pricing">View detailed pricing</a>
+      </p>
     </div>
   </section>
 
@@ -374,7 +425,7 @@
       </p>
       <div class="cta-actions">
         <a href="#contact" class="btn btn-white btn-lg">Request a Demo</a>
-        <a href="https://app.omfinitive.net" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener">Try the Platform</a>
+        <a href="https://app.omfinitive.net/signup" class="btn btn-outline-white btn-lg" target="_blank" rel="noopener">Start 14-day free trial</a>
       </div>
     </div>
   </section>
@@ -397,7 +448,7 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
             </div>
             <div>
-              <h4>Email Us</h4>
+              <h3>Email Us</h3>
               <a href="mailto:hello@omfinitive.net">hello@omfinitive.net</a>
             </div>
           </div>
@@ -406,7 +457,7 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
             </div>
             <div>
-              <h4>Location</h4>
+              <h3>Location</h3>
               <p>United Kingdom</p>
             </div>
           </div>
@@ -415,7 +466,7 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
             </div>
             <div>
-              <h4>Platform</h4>
+              <h3>Platform</h3>
               <a href="https://app.omfinitive.net" target="_blank" rel="noopener">app.omfinitive.net</a>
             </div>
           </div>
@@ -478,11 +529,13 @@
           <h5>Company</h5>
           <a href="#about">About Us</a>
           <a href="#features">Features</a>
+          <a href="#pricing">Pricing</a>
           <a href="#contact">Contact</a>
         </div>
         <div class="footer-links">
           <h5>Platform</h5>
           <a href="https://app.omfinitive.net" target="_blank" rel="noopener">Sign In</a>
+          <a href="https://app.omfinitive.net/signup" target="_blank" rel="noopener">Start free trial</a>
           <a href="https://app.omfinitive.net/careers">Care Jobs</a>
           <a href="#contact">Request Demo</a>
         </div>

@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => {
     navLinks.classList.toggle('active');
+    navToggle.setAttribute('aria-expanded', navLinks.classList.contains('active') ? 'true' : 'false');
     // Animate hamburger
     const spans = navToggle.querySelectorAll('span');
     if (navLinks.classList.contains('active')) {
@@ -33,6 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       navLinks.classList.remove('active');
+      navToggle.setAttribute('aria-expanded', 'false');
       const spans = navToggle.querySelectorAll('span');
       spans[0].style.transform = '';
       spans[1].style.opacity = '';
@@ -86,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.about-values .value').forEach((val, i) => {
     val.style.animationDelay = (i * 0.1) + 's';
   });
+
+  initPricing();
 
   // Contact form handling via Cloudflare Worker
   const WORKER_URL = 'https://omfinitive-contact.omfinitive-net.workers.dev';
@@ -174,3 +178,125 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 });
+
+// =============================================
+// Pricing: sector packages from the app's public packages API
+// Mirrors frontend/fe/src/lib/sectorPricing.ts (category "sector", active,
+// priced, sort_order). Fallback data renders first so the section is never
+// empty; live data replaces it when the API answers (needs CORS for
+// www.omfinitive.net on api.omfinitive.net).
+// =============================================
+const PACKAGES_URL = 'https://api.omfinitive.net/api/v1/packages';
+const SIGNUP_URL = 'https://app.omfinitive.net/signup';
+
+const CAPABILITY_NAMES = {
+  hr_core: 'HR Core',
+  payroll: 'Payroll & Attendance',
+  recruitment: 'Recruitment & Eligibility',
+  care: 'Care Delivery',
+  medications: 'Medications (eMAR)',
+  ecm: 'Electronic Call Monitoring',
+  governance: 'Governance & Safety',
+  compliance: 'Compliance & Quality',
+};
+
+// Snapshot of GET /api/v1/packages sector packages, 2026-11-08.
+const FALLBACK_PACKAGES = [
+  { key: 'domiciliary-care', name: 'Domiciliary Care', description: 'Provide quality care at home', category: 'sector', pepm_min: 28, pepm_max: 40, base_fee_min: 29, base_fee_max: 34, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'ecm', 'governance', 'compliance'], recommended: false, sort_order: 5, is_active: true },
+  { key: 'supported-living', name: 'Supported Living', description: 'Provide support & accommodation', category: 'sector', pepm_min: 26, pepm_max: 38, base_fee_min: 32, base_fee_max: 45, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'ecm', 'governance', 'compliance'], recommended: false, sort_order: 6, is_active: true },
+  { key: 'healthcare-recruitment', name: 'Recruitment', description: 'Provide trained and qualified care staff', category: 'sector', pepm_min: 18, pepm_max: 24, base_fee_min: 19, base_fee_max: 24, modules: ['hr_core', 'payroll', 'recruitment', 'compliance'], recommended: false, sort_order: 7, is_active: true },
+  { key: 'care-home', name: 'Care Home', description: 'Accommodation & care for the elderly', category: 'sector', pepm_min: 28, pepm_max: 40, base_fee_min: 34, base_fee_max: 46, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'governance', 'compliance'], recommended: false, sort_order: 8, is_active: true },
+  { key: 'childrens-home', name: 'Young Children', description: 'Accommodation & care for children', category: 'sector', pepm_min: 30, pepm_max: 42, base_fee_min: 36, base_fee_max: 48, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'governance', 'compliance'], recommended: false, sort_order: 9, is_active: true },
+  { key: 'supported-accommodation-16', name: 'Supported Accommodation (16+)', description: 'Accommodation & support for young people 16+', category: 'sector', pepm_min: 22, pepm_max: 32, base_fee_min: 28, base_fee_max: 38, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'governance', 'compliance'], recommended: false, sort_order: 10, is_active: true },
+];
+
+const SVG_OPEN = '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">';
+const HEART = '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>';
+const SECTOR_ICONS = {
+  'domiciliary-care': HEART,
+  'supported-living': HEART + '<path d="M12 5 9.04 7.96a2.17 2.17 0 0 0 0 3.08c.82.82 2.13.85 3 .07l2.07-1.9a2.82 2.82 0 0 1 3.79 0l2.96 2.66"/><path d="m18 15-2-2"/><path d="m15 18-2-2"/>',
+  'healthcare-recruitment': '<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/>',
+  'care-home': '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
+  'childrens-home': '<path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>',
+  'supported-accommodation-16': '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
+};
+const DEFAULT_ICON = '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>';
+
+function escapeHtml(v) {
+  return String(v == null ? '' : v).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+
+function money(n) {
+  const v = Number(n);
+  return Number.isInteger(v) ? String(v) : v.toFixed(2);
+}
+
+/** Pull the package list out of {success, data: [...]}, {data: {items}}, or a bare array. */
+function extractPackages(json) {
+  if (Array.isArray(json)) return json;
+  if (!json || typeof json !== 'object') return [];
+  const d = json.data !== undefined ? json.data : json;
+  if (Array.isArray(d)) return d;
+  if (d && Array.isArray(d.items)) return d.items;
+  if (d && Array.isArray(d.packages)) return d.packages;
+  return [];
+}
+
+/** Active, priced (never £0) sector packages in sort_order. */
+function toSectorPlans(list) {
+  return list
+    .filter((p) => p && p.category === 'sector' && p.is_active !== false && p.key && p.name
+      && Number(p.pepm_min) > 0 && Number(p.base_fee_min) > 0)
+    .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
+}
+
+function planCard(p) {
+  const baseMin = Number(p.base_fee_min);
+  const baseMax = Number(p.base_fee_max) > baseMin ? Number(p.base_fee_max) : baseMin;
+  const base = '+ &pound;' + money(baseMin) + (baseMax > baseMin ? '&ndash;&pound;' + money(baseMax) : '') + '/month base fee';
+  const features = (Array.isArray(p.modules) ? p.modules : [])
+    .map((m) => '<li>' + escapeHtml(CAPABILITY_NAMES[m] || m) + '</li>').join('');
+  const rec = !!p.recommended;
+  const href = SIGNUP_URL + '?package=' + encodeURIComponent(p.key);
+  return '<article class="plan-card' + (rec ? ' is-recommended' : '') + '">'
+    + (rec ? '<span class="plan-badge">Most Popular</span>' : '')
+    + '<div class="plan-icon">' + SVG_OPEN + (SECTOR_ICONS[p.key] || DEFAULT_ICON) + '</svg></div>'
+    + '<h3 class="plan-name">' + escapeHtml(p.name) + '</h3>'
+    + '<p class="plan-desc">' + escapeHtml(p.description) + '</p>'
+    + '<p class="plan-price"><span>from</span><strong>&pound;' + money(p.pepm_min) + '</strong><span>/employee/month</span></p>'
+    + '<p class="plan-base">' + base + '</p>'
+    + '<ul class="plan-features" aria-label="Included in ' + escapeHtml(p.name) + '">' + features + '</ul>'
+    + '<a class="btn btn-lg ' + (rec ? 'btn-white' : 'btn-dark') + '" href="' + href + '" target="_blank" rel="noopener"'
+    + ' data-plan="' + escapeHtml(p.key) + '" aria-label="Start free trial: ' + escapeHtml(p.name) + '">Start free trial</a>'
+    + '</article>';
+}
+
+function renderPlans(grid, plans, source) {
+  grid.innerHTML = plans.map(planCard).join('');
+  grid.dataset.source = source;
+}
+
+function initPricing() {
+  const grid = document.getElementById('pricingGrid');
+  if (!grid) return;
+
+  // Always show something immediately.
+  renderPlans(grid, toSectorPlans(FALLBACK_PACKAGES), 'fallback');
+
+  grid.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[data-plan]');
+    if (a && window.omfTrack) window.omfTrack('select_plan', { package: a.dataset.plan });
+  });
+
+  if (!window.fetch) return;
+  const ctrl = window.AbortController ? new AbortController() : null;
+  const timer = setTimeout(() => ctrl && ctrl.abort(), 8000);
+  fetch(PACKAGES_URL, { headers: { Accept: 'application/json' }, credentials: 'omit', signal: ctrl ? ctrl.signal : undefined })
+    .then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then((json) => {
+      const plans = toSectorPlans(extractPackages(json));
+      if (plans.length) renderPlans(grid, plans, 'live');
+    })
+    .catch(() => { /* keep the fallback cards */ })
+    .finally(() => clearTimeout(timer));
+}

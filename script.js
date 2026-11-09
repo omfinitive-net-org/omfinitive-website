@@ -172,6 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ofsted: "I'd like a demo of Children's Homes & Ofsted Registration.",
     cqc: "I'd like a demo of CQC Registration.",
     setup: "I'd like OMFiNiTiVE set up for my organisation. Our service types are: ",
+    migration: "We'd like help migrating our existing data (staff, training, care plans and/or policies) into OMFiNiTiVE. We currently use: ",
   };
   function prefillContact(intent) {
     const text = intent && CONTACT_INTENTS[intent];

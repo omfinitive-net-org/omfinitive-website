@@ -143,6 +143,14 @@
           },
           {
             "@type": "Question",
+            "name": "Can we bring our existing data into OMFiNiTiVE?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Data Import & Migration lets you bring existing staff, new starters, training records, care plans and policy documents into OMFiNiTiVE from spreadsheets and files. Each import shows you what will be added, and anything that needs fixing, before it is saved. As part of Premium onboarding we can also help with the initial migration of agreed existing records."
+            }
+          },
+          {
+            "@type": "Question",
             "name": "Does OMFiNiTiVE submit my Ofsted application or guarantee registration?",
             "acceptedAnswer": {
               "@type": "Answer",
@@ -174,7 +182,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261109b">
+  <link rel="stylesheet" href="styles.css?v=20261109c">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
@@ -705,6 +713,69 @@
     </div>
   </section>
 
+  <!-- Data Import & Migration (updates/23) -->
+  <section class="section migration" id="data-migration" aria-labelledby="migration-title">
+    <div class="container">
+      <div class="migration-header">
+        <span class="migration-eyebrow">Data Import &amp; Migration</span>
+        <h2 class="migration-title" id="migration-title">Switching systems? You don&rsquo;t have to start from scratch.</h2>
+        <p class="migration-lead">
+          Bring your existing staff, training, care plans and policy information with you. OMFiNiTiVE supports
+          structured data migration so you can move from spreadsheets or another care-management system into one
+          central platform.
+        </p>
+        <a href="#contact" class="btn btn-primary btn-lg" data-contact-intent="migration">Talk to Us About Data Migration</a>
+      </div>
+
+      <div class="migration-grid">
+        <div class="migration-card">
+          <div class="migration-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h3>Staff</h3>
+          <p>Profiles, roles, employment details, qualifications and compliance information.</p>
+        </div>
+        <div class="migration-card">
+          <div class="migration-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10 12 5 2 10l10 5 10-5Z"/><path d="M6 12v5c3 2 9 2 12 0v-5"/></svg>
+          </div>
+          <h3>Training</h3>
+          <p>Completion dates, expiry and renewal information, evidence and certificates.</p>
+        </div>
+        <div class="migration-card">
+          <div class="migration-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M8 13h8"/><path d="M8 17h8"/><path d="M8 9h2"/></svg>
+          </div>
+          <h3>Care plans</h3>
+          <p>Move existing care and support information into your central care-management environment.</p>
+        </div>
+        <div class="migration-card">
+          <div class="migration-icon" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2z"/><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <h3>Policies</h3>
+          <p>Upload your existing policy library without rebuilding it policy by policy.</p>
+        </div>
+      </div>
+
+      <div class="migration-banner">
+        <h3>Premium Data Migration Included</h3>
+        <p>We&rsquo;ll help you get started with the data you already have. As part of Premium onboarding, OMFiNiTiVE can
+          support the initial migration and configuration of agreed existing records.</p>
+        <ul class="migration-chips" aria-label="Records we can help migrate">
+          <li>Staff Data</li>
+          <li>Training Records</li>
+          <li>Care Plans</li>
+          <li>Policies</li>
+        </ul>
+      </div>
+      <p class="migration-note">
+        Every import shows you what will be added before anything is saved, and imported records arrive for your team
+        to review. What we migrate, and when, is agreed with you during onboarding.
+      </p>
+    </div>
+  </section>
+
   <!-- Pricing Section: cards rendered by script.js from GET https://api.omfinitive.net/api/v1/packages (sector packages), with a built-in fallback -->
   <section class="section pricing" id="pricing" aria-labelledby="pricing-title">
     <div class="container">
@@ -790,6 +861,12 @@
           <summary>Is OMFiNiTiVE suitable for organisations with multiple services?</summary>
           <div class="faq-answer">
             <p>Yes. OMFiNiTiVE is intended to support organisations operating across more than one care or support setting by bringing the core areas of Recruitment, Compliance and Call Monitoring into one environment.</p>
+          </div>
+        </details>
+        <details class="faq-item" id="faq-data-migration">
+          <summary>Can we bring our existing data into OMFiNiTiVE?</summary>
+          <div class="faq-answer">
+            <p>Yes. Data Import &amp; Migration lets you bring existing staff, new starters, training records, care plans and policy documents into OMFiNiTiVE from spreadsheets and files. Each import shows you what will be added, and anything that needs fixing, before it is saved. As part of Premium onboarding we can also help with the initial migration of agreed existing records. <a href="#data-migration">More about data migration</a>.</p>
           </div>
         </details>
         <details class="faq-item" id="faq-ofsted">
@@ -940,6 +1017,7 @@
           <a href="#features">Features</a>
           <a href="#cqc-registration">CQC Registration</a>
           <a href="#ofsted-registration">Ofsted Registration</a>
+          <a href="#data-migration">Data Migration</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
           <a href="#contact">Contact</a>
@@ -974,7 +1052,7 @@
       </div>
     </div>
   </div>
-  <script src="script.js?v=20261109b"></script>
+  <script src="script.js?v=20261109c"></script>
   <script src="analytics.js?v=20261109a"></script>
 </body>
 </html>

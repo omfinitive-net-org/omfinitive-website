@@ -163,6 +163,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // "Book a Demo" / "Request More Information" buttons all go to the contact
+  // form; data-contact-intent seeds an empty message so the enquiry says why.
+  const CONTACT_INTENTS = {
+    demo: "I'd like to book a demo of OMFiNiTiVE.",
+    info: "I'd like more information about OMFiNiTiVE.",
+    ofsted: "I'd like a demo of Children's Homes & Ofsted Registration.",
+  };
+  function prefillContact(intent) {
+    const text = intent && CONTACT_INTENTS[intent];
+    const msg = document.getElementById('message');
+    if (!text || !msg) return;
+    const seeded = Object.values(CONTACT_INTENTS).includes(msg.value.trim());
+    if (!msg.value.trim() || seeded) msg.value = text;
+    if (window.omfTrack) window.omfTrack('contact_cta_click', { intent: intent });
+  }
+
+  // Deep link straight to an FAQ answer (#faq-...) opens it.
+  if (location.hash && location.hash.length > 1) {
+    const initial = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (initial && initial.tagName === 'DETAILS') initial.open = true;
+  }
+
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', (e) => {
@@ -171,6 +193,9 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const target = document.querySelector(href);
       if (target) {
+        // Links to an FAQ answer open it (e.g. "Explore Recruitment").
+        if (target.tagName === 'DETAILS') target.open = true;
+        prefillContact(anchor.dataset.contactIntent);
         const navHeight = nav.offsetHeight;
         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
         window.scrollTo({ top: targetPosition, behavior: 'smooth' });

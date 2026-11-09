@@ -90,6 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   initPricing();
+  initPersonaPicker();
 
   // Contact form handling via Cloudflare Worker
   const WORKER_URL = 'https://omfinitive-contact.omfinitive-net.workers.dev';
@@ -169,6 +170,8 @@ document.addEventListener('DOMContentLoaded', () => {
     demo: "I'd like to book a demo of OMFiNiTiVE.",
     info: "I'd like more information about OMFiNiTiVE.",
     ofsted: "I'd like a demo of Children's Homes & Ofsted Registration.",
+    cqc: "I'd like a demo of CQC Registration.",
+    setup: "I'd like OMFiNiTiVE set up for my organisation. Our service types are: ",
   };
   function prefillContact(intent) {
     const text = intent && CONTACT_INTENTS[intent];
@@ -178,6 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!msg.value.trim() || seeded) msg.value = text;
     if (window.omfTrack) window.omfTrack('contact_cta_click', { intent: intent });
   }
+
+  // Links from other pages (e.g. demo.html "/?intent=setup#contact") seed the
+  // contact message the same way data-contact-intent does on this page.
+  try {
+    const qIntent = new URLSearchParams(location.search).get('intent');
+    if (qIntent && CONTACT_INTENTS[qIntent]) prefillContact(qIntent);
+  } catch (e) { /* old browsers: no prefill */ }
 
   // Deep link straight to an FAQ answer (#faq-...) opens it.
   if (location.hash && location.hash.length > 1) {
@@ -225,10 +235,12 @@ const CAPABILITY_NAMES = {
   compliance: 'Compliance & Quality',
 };
 
-// Snapshot of GET /api/v1/packages sector packages, 2026-11-08.
+// Snapshot of GET /api/v1/packages sector packages, 2026-11-08; Supported Living
+// split into Adults/Children per updates/22 (children copies adults' pricing).
 const FALLBACK_PACKAGES = [
   { key: 'domiciliary-care', name: 'Domiciliary Care', description: 'Provide quality care at home', category: 'sector', pepm_min: 28, pepm_max: 40, base_fee_min: 29, base_fee_max: 34, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'ecm', 'governance', 'compliance'], recommended: false, sort_order: 5, is_active: true },
-  { key: 'supported-living', name: 'Supported Living', description: 'Provide support & accommodation', category: 'sector', pepm_min: 26, pepm_max: 38, base_fee_min: 32, base_fee_max: 45, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'ecm', 'governance', 'compliance'], recommended: false, sort_order: 6, is_active: true },
+  { key: 'supported-living', name: 'Supported Living (Adults)', description: 'Provide support & accommodation', category: 'sector', pepm_min: 26, pepm_max: 38, base_fee_min: 32, base_fee_max: 45, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'ecm', 'governance', 'compliance'], recommended: false, sort_order: 6, is_active: true },
+  { key: 'supported-living-children', name: 'Supported Living (Children)', description: 'Support & accommodation for children', category: 'sector', pepm_min: 26, pepm_max: 38, base_fee_min: 32, base_fee_max: 45, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'ecm', 'governance', 'compliance'], recommended: false, sort_order: 6.5, is_active: true },
   { key: 'healthcare-recruitment', name: 'Recruitment', description: 'Provide trained and qualified care staff', category: 'sector', pepm_min: 18, pepm_max: 24, base_fee_min: 19, base_fee_max: 24, modules: ['hr_core', 'payroll', 'recruitment', 'compliance'], recommended: false, sort_order: 7, is_active: true },
   { key: 'care-home', name: 'Care Home', description: 'Accommodation & care for the elderly', category: 'sector', pepm_min: 28, pepm_max: 40, base_fee_min: 34, base_fee_max: 46, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'medications', 'governance', 'compliance'], recommended: false, sort_order: 8, is_active: true },
   { key: 'childrens-home', name: 'Young Children', description: 'Accommodation & care for children', category: 'sector', pepm_min: 30, pepm_max: 42, base_fee_min: 36, base_fee_max: 48, modules: ['hr_core', 'payroll', 'recruitment', 'care', 'governance', 'compliance'], recommended: false, sort_order: 9, is_active: true },
@@ -243,6 +255,7 @@ const SECTOR_ICONS = {
   'healthcare-recruitment': '<path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6a6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1a.2.2 0 1 0 .3.3"/><path d="M8 15v1a6 6 0 0 0 6 6a6 6 0 0 0 6-6v-4"/><circle cx="20" cy="10" r="2"/>',
   'care-home': '<path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/>',
   'childrens-home': '<path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>',
+  'supported-living-children': '<path d="M9 12h.01"/><path d="M15 12h.01"/><path d="M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/>',
   'supported-accommodation-16': '<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>',
 };
 const DEFAULT_ICON = '<rect width="20" height="14" x="2" y="7" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>';
@@ -324,4 +337,31 @@ function initPricing() {
     })
     .catch(() => { /* keep the fallback cards */ })
     .finally(() => clearTimeout(timer));
+}
+
+// =============================================
+// Demo page (demo.html): "Choose who to view as" persona picker.
+// Panels are in the HTML (first one visible without JS); this only toggles.
+// =============================================
+function initPersonaPicker() {
+  const cards = document.querySelectorAll('.persona-card[data-persona]');
+  if (!cards.length) return;
+  cards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const key = card.dataset.persona;
+      cards.forEach((c) => {
+        const on = c === card;
+        c.classList.toggle('is-active', on);
+        c.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      document.querySelectorAll('.persona-panel').forEach((p) => {
+        p.hidden = p.id !== 'persona-' + key;
+      });
+      if (window.omfTrack) window.omfTrack('demo_persona_select', { persona: key });
+    });
+  });
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('a[data-demo-open]');
+    if (a && window.omfTrack) window.omfTrack('demo_open', { from: a.dataset.demoOpen });
+  });
 }

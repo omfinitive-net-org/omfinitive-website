@@ -116,6 +116,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      const interestSelect = contactForm.querySelector('#interest');
       const formData = new FormData(contactForm);
       const data = {
         name: formData.get('name'),
@@ -123,6 +124,10 @@ document.addEventListener('DOMContentLoaded', () => {
         organisation: formData.get('organisation'),
         interest: formData.get('interest'),
         message: formData.get('message'),
+        // The label travels in the message too, so the enquiry email names the choice
+        // whatever version of the contact Worker is deployed.
+        interestLabel: interestSelect && interestSelect.value
+          ? interestSelect.options[interestSelect.selectedIndex].text : '',
         turnstileToken: turnstileToken,
       };
 
@@ -131,6 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
         showStatus('Please fill in all required fields.', true);
         return;
       }
+      if (data.interestLabel) {
+        data.message = 'Interested in: ' + data.interestLabel + '\n\n' + data.message;
+      }
+      delete data.interestLabel;
 
       submitBtn.disabled = true;
       submitBtn.textContent = 'Sending...';

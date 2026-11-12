@@ -66,13 +66,31 @@ export default {
 
       // Build email
       const interestMap = {
+        'domiciliary-care': 'Domiciliary Care',
+        'supported-living': 'Supported Living (Adults)',
+        'supported-living-children': 'Supported Living (Children)',
+        'care-home': 'Care Home',
+        'childrens-home': "Young Children (children's homes)",
+        'supported-accommodation-16': 'Supported Accommodation (16+)',
+        'healthcare-recruitment': 'Recruitment (temporary staffing)',
+        'core-hr': 'Core HR',
+        'hr-payroll': 'HR + Payroll',
+        'workforce-os': 'Workforce OS',
+        'full-stack': 'Full Stack',
+        'demo': 'Book a demo',
+        'cqc-registration': 'CQC registration support',
+        'ofsted-registration': 'Ofsted registration support',
+        'data-migration': 'Data import & migration',
+        'policy-templates': 'Policy templates',
+        'other': 'Something else',
+        // older form values
         care: 'OMFiNiTiVE Care',
         hr: 'OMFiNiTiVE HR',
-        procurement: 'OMFiNiTiVE Procurement',
         all: 'Full Platform',
       };
 
-      const interestLabel = interestMap[interest] || 'Not specified';
+      const interestLabel = interestMap[interest]
+        || (interest ? String(interest).slice(0, 60) : 'Not specified');
 
       const msg = createMimeMessage();
       msg.setSender({ name: 'OMFiNiTiVE Website', addr: 'noreply@omfinitive.net' });

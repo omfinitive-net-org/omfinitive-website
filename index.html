@@ -182,7 +182,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=20261112a">
+  <link rel="stylesheet" href="styles.css?v=20261112b">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
@@ -976,11 +976,30 @@
           <div class="form-group">
             <label for="interest">Interested In</label>
             <select id="interest" name="interest">
-              <option value="">Select a module...</option>
-              <option value="care">OMFiNiTiVE Care</option>
-              <option value="hr">OMFiNiTiVE HR</option>
-              <option value="procurement">OMFiNiTiVE Procurement</option>
-              <option value="all">Full Platform</option>
+              <option value="">Select what you're interested in...</option>
+              <optgroup label="Care sector packages">
+                <option value="domiciliary-care">Domiciliary Care</option>
+                <option value="supported-living">Supported Living (Adults)</option>
+                <option value="supported-living-children">Supported Living (Children)</option>
+                <option value="care-home">Care Home</option>
+                <option value="childrens-home">Young Children (children's homes)</option>
+                <option value="supported-accommodation-16">Supported Accommodation (16+)</option>
+                <option value="healthcare-recruitment">Recruitment (temporary staffing)</option>
+              </optgroup>
+              <optgroup label="Workforce plans">
+                <option value="core-hr">Core HR</option>
+                <option value="hr-payroll">HR + Payroll</option>
+                <option value="workforce-os">Workforce OS</option>
+                <option value="full-stack">Full Stack</option>
+              </optgroup>
+              <optgroup label="Services">
+                <option value="demo">Book a demo</option>
+                <option value="cqc-registration">CQC registration support</option>
+                <option value="ofsted-registration">Ofsted registration support</option>
+                <option value="data-migration">Data import &amp; migration</option>
+                <option value="policy-templates">Policy templates</option>
+                <option value="other">Something else</option>
+              </optgroup>
             </select>
           </div>
           <div class="form-group">
@@ -1052,7 +1071,7 @@
       </div>
     </div>
   </div>
-  <script src="script.js?v=20261112a"></script>
-  <script src="analytics.js?v=20261112a"></script>
+  <script src="script.js?v=20261112b"></script>
+  <script src="analytics.js?v=20261112b"></script>
 </body>
 </html>

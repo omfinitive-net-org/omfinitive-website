@@ -306,7 +306,7 @@ function planCard(p) {
     + '<p class="plan-base">' + base + '</p>'
     + '<ul class="plan-features" aria-label="Included in ' + escapeHtml(p.name) + '">' + features + '</ul>'
     + '<a class="btn btn-lg ' + (rec ? 'btn-white' : 'btn-dark') + '" href="' + href + '" target="_blank" rel="noopener"'
-    + ' data-plan="' + escapeHtml(p.key) + '" aria-label="Start free trial: ' + escapeHtml(p.name) + '">Start free trial</a>'
+    + ' data-plan="' + escapeHtml(p.key) + '" aria-label="Get started: ' + escapeHtml(p.name) + '">Get started</a>'
     + '</article>';
 }
 

@@ -1,5 +1,9 @@
-import { EmailMessage } from 'cloudflare:email';
-import { createMimeMessage } from 'mimetext';
+import { AwsClient } from 'aws4fetch';
+
+// Mail goes out through Amazon SES (omfinitive.net is a verified SES identity).
+// Cloudflare Email Routing is not used: enabling it would take over the domain's MX records.
+const FROM = 'OMFiNiTiVE Website <no-reply@omfinitive.net>';
+const TO = 'hello@omfinitive.net';
 
 const corsHeaders = (origin) => ({
   'Access-Control-Allow-Origin': origin,
@@ -93,15 +97,9 @@ export default {
       const interestLabel = String(interest || '').split(',').map((k) => k.trim()).filter(Boolean)
         .slice(0, 20).map((k) => interestMap[k] || k.slice(0, 60)).join(', ') || 'Not specified';
 
-      const msg = createMimeMessage();
-      msg.setSender({ name: 'OMFiNiTiVE Website', addr: 'noreply@omfinitive.net' });
-      msg.setRecipient('hello@omfinitive.net');
-      msg.setHeader('Reply-To', email);
-      msg.setSubject(`Website Enquiry from ${name}`);
+      const subject = `Website Enquiry from ${name}`;
 
-      msg.addMessage({
-        contentType: 'text/plain',
-        data: [
+      const text = [
           `New enquiry from the OMFiNiTiVE website:`,
           ``,
           `Name: ${name}`,
@@ -111,12 +109,9 @@ export default {
           ``,
           `Message:`,
           message,
-        ].join('\n'),
-      });
+        ].join('\n');
 
-      msg.addMessage({
-        contentType: 'text/html',
-        data: `
+      const html = `
           <div style="font-family: 'Open Sans', Arial, sans-serif; max-width: 600px; margin: 0 auto;">
             <div style="background: linear-gradient(135deg, #001F3F, #002a57); padding: 24px 32px; border-radius: 12px 12px 0 0;">
               <h2 style="color: #ffffff; margin: 0; font-family: 'Montserrat', Arial, sans-serif;">New Website Enquiry</h2>
@@ -132,11 +127,32 @@ export default {
               <p style="color: #64748b; margin: 0 0 8px; font-size: 14px;">Message:</p>
               <p style="color: #1e293b; margin: 0; line-height: 1.6; white-space: pre-wrap;">${escapeHtml(message)}</p>
             </div>
-          </div>`,
-      });
+          </div>`;
 
-      const emailMessage = new EmailMessage('noreply@omfinitive.net', 'hello@omfinitive.net', msg.asRaw());
-      await env.EMAIL.send(emailMessage);
+      const ses = new AwsClient({
+        accessKeyId: env.SES_ACCESS_KEY,
+        secretAccessKey: env.SES_SECRET_KEY,
+        region: env.SES_REGION || 'eu-west-2',
+        service: 'ses',
+      });
+      const sesRes = await ses.fetch(`https://email.${env.SES_REGION || 'eu-west-2'}.amazonaws.com/v2/email/outbound-emails`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          FromEmailAddress: FROM,
+          Destination: { ToAddresses: [TO] },
+          ReplyToAddresses: [email],
+          Content: {
+            Simple: {
+              Subject: { Data: subject, Charset: 'UTF-8' },
+              Body: { Text: { Data: text, Charset: 'UTF-8' }, Html: { Data: html, Charset: 'UTF-8' } },
+            },
+          },
+        }),
+      });
+      if (!sesRes.ok) {
+        throw new Error(`SES send failed: ${sesRes.status} ${(await sesRes.text()).slice(0, 300)}`);
+      }
 
       return new Response(JSON.stringify({ success: true, message: 'Your message has been sent successfully.' }), {
         status: 200,

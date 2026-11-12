@@ -116,18 +116,17 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      const interestSelect = contactForm.querySelector('#interest');
       const formData = new FormData(contactForm);
       const data = {
         name: formData.get('name'),
         email: formData.get('email'),
         organisation: formData.get('organisation'),
-        interest: formData.get('interest'),
+        // Several can be ticked: keys go comma-separated; the labels also travel in the
+        // message so the enquiry email names them whatever Worker version is deployed.
+        interest: formData.getAll('interest').join(','),
         message: formData.get('message'),
-        // The label travels in the message too, so the enquiry email names the choice
-        // whatever version of the contact Worker is deployed.
-        interestLabel: interestSelect && interestSelect.value
-          ? interestSelect.options[interestSelect.selectedIndex].text : '',
+        interestLabel: Array.from(contactForm.querySelectorAll('input[name="interest"]:checked'))
+          .map((c) => c.parentElement.textContent.trim()).join(', '),
         turnstileToken: turnstileToken,
       };
 

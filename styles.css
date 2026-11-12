@@ -3061,3 +3061,26 @@ textarea:focus-visible {
     text-align: center;
   }
 }
+
+/* Interested In: several choices (checkboxes, grouped) */
+.interest-group { border: 0; padding: 0; margin: 0 0 20px; min-width: 0; }
+.interest-group legend {
+  font-family: var(--font-heading); font-size: 0.85rem; font-weight: 600; color: var(--gray-700);
+  margin-bottom: 8px; padding: 0;
+}
+.interest-hint { font-weight: 400; color: var(--gray-400); }
+.interest-options {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px 20px;
+  padding: 14px 16px; border: 1px solid var(--gray-200); border-radius: 10px; background: var(--gray-50);
+}
+.interest-heading {
+  font-family: var(--font-heading); font-size: 0.75rem; font-weight: 600; text-transform: uppercase;
+  letter-spacing: 0.04em; color: var(--gray-500, #64748b); margin: 0 0 6px;
+}
+.form-group label.interest-option {
+  display: flex; align-items: flex-start; gap: 8px; font-family: var(--font-body); font-weight: 400;
+  font-size: 0.875rem; color: var(--gray-800); margin: 0 0 6px; cursor: pointer;
+}
+.form-group .interest-option input[type="checkbox"] {
+  width: 16px; height: 16px; padding: 0; margin: 2px 0 0; flex: none; accent-color: var(--blue); box-shadow: none;
+}

@@ -89,8 +89,9 @@ export default {
         all: 'Full Platform',
       };
 
-      const interestLabel = interestMap[interest]
-        || (interest ? String(interest).slice(0, 60) : 'Not specified');
+      // The form allows several choices, sent comma-separated.
+      const interestLabel = String(interest || '').split(',').map((k) => k.trim()).filter(Boolean)
+        .slice(0, 20).map((k) => interestMap[k] || k.slice(0, 60)).join(', ') || 'Not specified';
 
       const msg = createMimeMessage();
       msg.setSender({ name: 'OMFiNiTiVE Website', addr: 'noreply@omfinitive.net' });

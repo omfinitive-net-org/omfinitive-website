@@ -973,35 +973,37 @@
             <label for="organisation">Organisation</label>
             <input type="text" id="organisation" name="organisation" placeholder="Your organisation name">
           </div>
-          <div class="form-group">
-            <label for="interest">Interested In</label>
-            <select id="interest" name="interest">
-              <option value="">Select what you're interested in...</option>
-              <optgroup label="Care sector packages">
-                <option value="domiciliary-care">Domiciliary Care</option>
-                <option value="supported-living">Supported Living (Adults)</option>
-                <option value="supported-living-children">Supported Living (Children)</option>
-                <option value="care-home">Care Home</option>
-                <option value="childrens-home">Young Children (children's homes)</option>
-                <option value="supported-accommodation-16">Supported Accommodation (16+)</option>
-                <option value="healthcare-recruitment">Recruitment (temporary staffing)</option>
-              </optgroup>
-              <optgroup label="Workforce plans">
-                <option value="core-hr">Core HR</option>
-                <option value="hr-payroll">HR + Payroll</option>
-                <option value="workforce-os">Workforce OS</option>
-                <option value="full-stack">Full Stack</option>
-              </optgroup>
-              <optgroup label="Services">
-                <option value="demo">Book a demo</option>
-                <option value="cqc-registration">CQC registration support</option>
-                <option value="ofsted-registration">Ofsted registration support</option>
-                <option value="data-migration">Data import &amp; migration</option>
-                <option value="policy-templates">Policy templates</option>
-                <option value="other">Something else</option>
-              </optgroup>
-            </select>
-          </div>
+          <fieldset class="form-group interest-group">
+            <legend>Interested In <span class="interest-hint">(choose any)</span></legend>
+            <div class="interest-options">
+              <div class="interest-col">
+                <p class="interest-heading">Care sector packages</p>
+                <label class="interest-option"><input type="checkbox" name="interest" value="domiciliary-care"> Domiciliary Care</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="supported-living"> Supported Living (Adults)</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="supported-living-children"> Supported Living (Children)</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="care-home"> Care Home</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="childrens-home"> Young Children (children's homes)</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="supported-accommodation-16"> Supported Accommodation (16+)</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="healthcare-recruitment"> Recruitment (temporary staffing)</label>
+              </div>
+              <div class="interest-col">
+                <p class="interest-heading">Workforce plans</p>
+                <label class="interest-option"><input type="checkbox" name="interest" value="core-hr"> Core HR</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="hr-payroll"> HR + Payroll</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="workforce-os"> Workforce OS</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="full-stack"> Full Stack</label>
+              </div>
+              <div class="interest-col">
+                <p class="interest-heading">Services</p>
+                <label class="interest-option"><input type="checkbox" name="interest" value="demo"> Book a demo</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="cqc-registration"> CQC registration support</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="ofsted-registration"> Ofsted registration support</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="data-migration"> Data import &amp; migration</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="policy-templates"> Policy templates</label>
+                <label class="interest-option"><input type="checkbox" name="interest" value="other"> Something else</label>
+              </div>
+            </div>
+          </fieldset>
           <div class="form-group">
             <label for="message">Message</label>
             <textarea id="message" name="message" rows="4" placeholder="Tell us about your needs..."></textarea>

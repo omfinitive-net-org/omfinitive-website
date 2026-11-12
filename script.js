@@ -374,3 +374,142 @@ function initPersonaPicker() {
     if (a && window.omfTrack) window.omfTrack('demo_open', { from: a.dataset.demoOpen });
   });
 }
+
+// =============================================
+// Contact form: "Interested In" as a searchable, multi-select dropdown.
+// Progressive enhancement over the grouped checkboxes in the fieldset: without
+// JavaScript the checkboxes show as a plain list and still submit.
+// =============================================
+document.addEventListener('DOMContentLoaded', () => {
+  const group = document.querySelector('.interest-group');
+  const panel = group && group.querySelector('.interest-options');
+  if (!group || !panel) return;
+  const boxes = Array.from(panel.querySelectorAll('input[name="interest"]'));
+  const labelOf = (cb) => cb.parentElement.textContent.trim();
+
+  group.classList.add('ms-enhanced');
+  panel.id = panel.id || 'interestPanel';
+  panel.setAttribute('role', 'group');
+  panel.setAttribute('aria-label', 'Interested In options');
+  panel.hidden = true;
+
+  const control = document.createElement('div');
+  control.className = 'ms-control';
+  const chips = document.createElement('div');
+  chips.className = 'ms-chips';
+  const search = document.createElement('input');
+  search.type = 'text';
+  search.className = 'ms-search';
+  search.placeholder = 'Search or select…';
+  search.setAttribute('role', 'combobox');
+  search.setAttribute('aria-expanded', 'false');
+  search.setAttribute('aria-controls', panel.id);
+  search.setAttribute('aria-autocomplete', 'list');
+  search.setAttribute('aria-label', 'Interested In: search options');
+  search.autocomplete = 'off';
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'ms-toggle';
+  toggle.setAttribute('aria-label', 'Show options');
+  toggle.tabIndex = -1;
+  chips.appendChild(search);
+  control.append(chips, toggle);
+  group.insertBefore(control, panel);
+
+  const empty = document.createElement('p');
+  empty.className = 'ms-empty';
+  empty.textContent = 'No matches';
+  empty.hidden = true;
+  panel.appendChild(empty);
+
+  const open = () => {
+    if (!panel.hidden) return;
+    panel.hidden = false;
+    group.classList.add('ms-open');
+    search.setAttribute('aria-expanded', 'true');
+  };
+  const close = () => {
+    panel.hidden = true;
+    group.classList.remove('ms-open');
+    search.setAttribute('aria-expanded', 'false');
+  };
+  const visible = () => boxes.filter((cb) => !cb.parentElement.hidden);
+
+  const filter = () => {
+    const q = search.value.trim().toLowerCase();
+    let shown = 0;
+    panel.querySelectorAll('.interest-col').forEach((col) => {
+      let n = 0;
+      col.querySelectorAll('.interest-option').forEach((opt) => {
+        const hit = !q || opt.textContent.toLowerCase().includes(q);
+        opt.hidden = !hit;
+        if (hit) n++;
+      });
+      col.hidden = n === 0;
+      shown += n;
+    });
+    empty.hidden = shown !== 0;
+  };
+
+  const renderChips = () => {
+    chips.querySelectorAll('.ms-chip').forEach((c) => c.remove());
+    boxes.filter((cb) => cb.checked).forEach((cb) => {
+      const chip = document.createElement('span');
+      chip.className = 'ms-chip';
+      chip.textContent = labelOf(cb);
+      const x = document.createElement('button');
+      x.type = 'button';
+      x.className = 'ms-chip-remove';
+      x.setAttribute('aria-label', 'Remove ' + labelOf(cb));
+      x.textContent = '×';
+      x.addEventListener('click', (e) => {
+        e.stopPropagation();
+        cb.checked = false;
+        renderChips();
+        search.focus();
+      });
+      chip.appendChild(x);
+      chips.insertBefore(chip, search);
+    });
+    search.placeholder = boxes.some((cb) => cb.checked) ? '' : 'Search or select…';
+  };
+
+  control.addEventListener('click', () => { open(); search.focus(); });
+  toggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (panel.hidden) { open(); search.focus(); } else { close(); }
+  });
+  search.addEventListener('input', () => { open(); filter(); });
+  search.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault(); open();
+      const v = visible(); if (v[0]) v[0].focus();
+    } else if (e.key === 'Enter') {
+      // Enter picks the first match instead of submitting the form.
+      e.preventDefault();
+      const v = visible();
+      if (!panel.hidden && v[0] && search.value.trim()) {
+        v[0].checked = !v[0].checked; renderChips(); search.value = ''; filter();
+      } else { open(); }
+    } else if (e.key === 'Escape') {
+      close();
+    } else if (e.key === 'Backspace' && !search.value) {
+      const last = boxes.filter((cb) => cb.checked).pop();
+      if (last) { last.checked = false; renderChips(); }
+    }
+  });
+  panel.addEventListener('change', () => { renderChips(); });
+  panel.addEventListener('keydown', (e) => {
+    const v = visible();
+    const i = v.indexOf(document.activeElement);
+    if (e.key === 'ArrowDown') { e.preventDefault(); (v[i + 1] || v[i] || v[0]).focus(); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (i <= 0) search.focus(); else v[i - 1].focus(); }
+    else if (e.key === 'Escape') { e.preventDefault(); close(); search.focus(); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (i >= 0) { v[i].checked = !v[i].checked; renderChips(); } }
+  });
+  document.addEventListener('click', (e) => { if (!group.contains(e.target)) close(); });
+  group.addEventListener('focusout', (e) => { if (!group.contains(e.relatedTarget)) close(); });
+  const form = group.closest('form');
+  if (form) form.addEventListener('reset', () => setTimeout(() => { search.value = ''; filter(); renderChips(); close(); }, 0));
+  renderChips();
+});

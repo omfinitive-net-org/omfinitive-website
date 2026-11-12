@@ -3084,3 +3084,43 @@ textarea:focus-visible {
 .form-group .interest-option input[type="checkbox"] {
   width: 16px; height: 16px; padding: 0; margin: 2px 0 0; flex: none; accent-color: var(--blue); box-shadow: none;
 }
+
+/* Interested In: searchable multi-select dropdown (enhances the checkbox list) */
+.interest-group.ms-enhanced { position: relative; }
+.ms-enhanced .ms-control {
+  display: flex; align-items: center; gap: 6px; min-height: 46px; padding: 6px 10px 6px 12px;
+  border: 1px solid var(--gray-200); border-radius: 10px; background: var(--gray-50); cursor: text;
+  transition: all var(--transition);
+}
+.ms-enhanced.ms-open .ms-control, .ms-enhanced .ms-control:focus-within {
+  border-color: var(--blue); background: var(--white); box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+}
+.ms-chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; min-width: 0; align-items: center; }
+.ms-chip {
+  display: inline-flex; align-items: center; gap: 4px; padding: 3px 4px 3px 10px; border-radius: 999px;
+  background: rgba(0, 123, 255, 0.1); color: var(--blue); font-size: 0.8rem; font-weight: 600; line-height: 1.3;
+}
+.ms-chip-remove {
+  border: 0; background: transparent; color: inherit; font-size: 1rem; line-height: 1; cursor: pointer;
+  width: 20px; height: 20px; border-radius: 50%; padding: 0;
+}
+.ms-chip-remove:hover, .ms-chip-remove:focus-visible { background: rgba(0, 123, 255, 0.18); outline: none; }
+.form-group input.ms-search {
+  flex: 1; min-width: 120px; width: auto; border: 0; background: transparent; padding: 6px 2px; box-shadow: none;
+}
+.form-group input.ms-search:focus { border: 0; box-shadow: none; background: transparent; }
+.ms-toggle {
+  flex: none; width: 28px; height: 28px; border: 0; background: transparent; cursor: pointer; padding: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2394A3B8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: center; transition: transform var(--transition);
+}
+.ms-open .ms-toggle { transform: rotate(180deg); }
+.ms-enhanced .interest-options {
+  position: absolute; z-index: 20; left: 0; right: 0; top: calc(100% + 6px);
+  max-height: 320px; overflow-y: auto; background: var(--white);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+}
+.ms-enhanced .interest-options[hidden] { display: none; }
+.ms-empty { margin: 0; font-size: 0.875rem; color: var(--gray-400); grid-column: 1 / -1; }
+.interest-col[hidden], .interest-option[hidden] { display: none !important; }
+.form-group .interest-option input[type="checkbox"]:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }

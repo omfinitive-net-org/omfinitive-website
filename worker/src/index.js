@@ -3,7 +3,8 @@ import { AwsClient } from 'aws4fetch';
 // Mail goes out through Amazon SES (omfinitive.net is a verified SES identity).
 // Cloudflare Email Routing is not used: enabling it would take over the domain's MX records.
 const FROM = 'OMFiNiTiVE Website <no-reply@omfinitive.net>';
-const TO = 'hello@omfinitive.net';
+const TO = ['darlington@omfinitive.net'];
+const CC = ['admin@omfinitive.net'];
 
 const corsHeaders = (origin) => ({
   'Access-Control-Allow-Origin': origin,
@@ -140,7 +141,7 @@ export default {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           FromEmailAddress: FROM,
-          Destination: { ToAddresses: [TO] },
+          Destination: { ToAddresses: TO, CcAddresses: CC },
           ReplyToAddresses: [email],
           Content: {
             Simple: {
